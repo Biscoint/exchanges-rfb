@@ -1,4 +1,5 @@
 import SimpleSchema from 'simpl-schema';
+import moment from 'moment';
 import { cpf, cnpj } from 'cpf-cnpj-validator';
 
 export const exchangeDataSchema = new SimpleSchema({
@@ -23,12 +24,10 @@ export const exchangeDataSchema = new SimpleSchema({
 
 export const buySellOperationSchema = new SimpleSchema({
     date: {
-        type: Date,
+        type: String,
         autoValue: function() {
-            if(typeof this.value === 'string'){
-                var m = this.value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/) ? this.value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/) : this.value.match(/^(\d{1,2})(\d{1,2})(\d{4})$/);
-                return (m) ? new Date(m[3], m[2]-1, m[1]) : undefined;
-            }
+            var m = this.value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/) ? this.value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/) : this.value.match(/^(\d{1,2})(\d{1,2})(\d{4})$/);
+            return (m) ? moment(new Date(m[3], m[2]-1, m[1])).format('DDMMYYYY') : moment(new Date(this.value * 1000)).format('DDMMYYYY') !== 'Invalid date' ? moment(new Date(this.value * 1000)).format('DDMMYYYY') : moment(new Date(this.value)).format('DDMMYYYY') !== 'Invalid date' ? moment(new Date(this.value)).format('DDMMYYYY') : null;
         }
     },
     id: {

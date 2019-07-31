@@ -6,7 +6,7 @@ var biscointTestex = new TestEx({
 });
 
 biscointTestex.addBuySellOperation({ 
-    date: '25/05/2019', // Input date
+    date: '25/05/2019', // Input Javascript Date Object, 'DD/MM/YYYY', 'DDMMYYYY' as or Unix Timestamp
     id: 'a12345', // Operation Id in your exchange
     brl_value: 'R$ 1500,80', // BRL value trade (don't allow thousands separator)
     brl_fees: 'R$ 1,49', // BRL fee trade (don't allow thousands separator)
