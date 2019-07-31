@@ -19,7 +19,7 @@ const MyEx = new Exchange({
     exchange_url: 'https://testex.biscoint.io'
 });
 
-MyEx.addBuySellOperation({ date, id, brl_value, brl_fees, coin_symbol coin_quantity, buyer_id_type, buyer_country, buyer_document, buyer_fullname, buyer_address, seller_id_type, seller_country, seller_document, seller_fullname, seller_address });
+MyEx.addBuySellOperation({ date, id, brl_value, brl_fees, coin_symbol coin_quantity, buyer_identity_type, buyer_country, buyer_document, buyer_fullname, buyer_address, seller_identity_type, seller_country, seller_document, seller_fullname, seller_address });
 
 console.log(MyEx.exportFile());
 ```
