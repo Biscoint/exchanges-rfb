@@ -135,7 +135,7 @@ export const permutationOperationSchema = new SimpleSchema({
     user1_coin_quantity: commonSchemas.coin,
     user1_identity_type: commonSchemas.identity_type,
     user1_country: commonSchemas.country,
-    user1_document: commonSchemas.documen,
+    user1_document: commonSchemas.document,
     user1_fullname: commonSchemas.name,
     user1_address: commonSchemas.address,
 
@@ -143,7 +143,7 @@ export const permutationOperationSchema = new SimpleSchema({
     user2_coin_quantity: commonSchemas.coin,
     user2_identity_type: commonSchemas.identity_type,
     user2_country: commonSchemas.country,
-    user2_document: commonSchemas.documen,
+    user2_document: commonSchemas.document,
     user2_fullname: commonSchemas.name,
     user2_address: commonSchemas.address,
 });

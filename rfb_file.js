@@ -1,3 +1,14 @@
+function getIdentityRFB(identity_type){
+    return (identity_type === 'CPF') ? 1 
+    : (identity_type === 'CNPJ') ? 2 
+    : (identity_type === 'NIF_PF') ? 3 
+    : (identity_type === 'NIF_PJ') ? 4
+    : (identity_type === 'PASSPORT') ? 5
+    : (identity_type === 'COUNTRY_NO_ID') ? 6
+    : (identity_type === 'USER_NO_ID') ? 7
+    : '';
+}
+
 export function createHeader(obj) {
     const line_type = '0000';
     const { exchange_name, exchange_cnpj, exchange_url } = obj;
@@ -43,29 +54,15 @@ export function createBuySellOp(obj) {
     const rfb_brl_fees = brl_fees.toFixed(2).replace(/\./g, ',');
     const rfb_coin_quantity = coin_quantity.toFixed(10).replace(/\./g, ',');
 
-    const rfb_buyer_identity_type = (buyer_identity_type === 'CPF') ? 1 
-    : (buyer_identity_type === 'CNPJ') ? 2 
-    : (buyer_identity_type === 'NIF_PF') ? 3 
-    : (buyer_identity_type === 'NIF_PJ') ? 4
-    : (buyer_identity_type === 'PASSPORT') ? 5
-    : (buyer_identity_type === 'COUNTRY_NO_ID') ? 6
-    : (buyer_identity_type === 'USER_NO_ID') ? 7
-    : '';
+    const rfb_buyer_identity_type = getIdentityRFB(buyer_identity_type);
 
-    const rfb_buyer_cpf = (buyer_identity_type === 'CPF' || buyer_identity_type === 'CNPJ') ? buyer_document.match(/\d+/g).join('') : '';
-    const rfb_buyer_nif = (buyer_identity_type === 'NIF_PF' || buyer_identity_type === 'NIF_PJ' || buyer_identity_type === 'PASSPORT') ? buyer_document.match(/\d+/g).join('') : '';
+    const rfb_buyer_cpf = ([1,2].indexOf(rfb_buyer_identity_type)) ? buyer_document.match(/\d+/g).join('') : '';
+    const rfb_buyer_nif = ([3,4,5].indexOf(rfb_buyer_identity_type)) ? buyer_document.match(/\d+/g).join('') : '';
 
-    const rfb_seller_identity_type = (seller_identity_type === 'CPF') ? 1 
-    : (seller_identity_type === 'CNPJ') ? 2 
-    : (seller_identity_type === 'NIF_PF') ? 3 
-    : (seller_identity_type === 'NIF_PJ') ? 4
-    : (seller_identity_type === 'PASSPORT') ? 5
-    : (seller_identity_type === 'COUNTRY_NO_ID') ? 6
-    : (seller_identity_type === 'USER_NO_ID') ? 7
-    : '';
+    const rfb_seller_identity_type = getIdentityRFB(seller_identity_type);
 
-    const rfb_seller_cpf = (seller_identity_type === 'CPF' || seller_identity_type === 'CNPJ') ? seller_document : '';
-    const rfb_seller_nif = (seller_identity_type === 'NIF_PF' || seller_identity_type === 'NIF_PJ' || seller_identity_type === 'PASSPORT') ? seller_document : '';
+    const rfb_seller_cpf = ([1,2].indexOf(rfb_seller_identity_type)) ? seller_document.match(/\d+/g).join('') : '';
+    const rfb_seller_nif = ([3,4,5].indexOf(rfb_seller_identity_type)) ? seller_document.match(/\d+/g).join('') : '';
 
     return `${line_type}|${date}|${id}|${operation_code}|${rfb_brl_value}|${rfb_brl_fees}|${coin_symbol}|${rfb_coin_quantity}|${rfb_buyer_identity_type}|${buyer_country}|${rfb_buyer_cpf}|${rfb_buyer_nif}|${buyer_fullname}|${buyer_address}|${rfb_seller_identity_type}|${seller_country}|${rfb_seller_cpf}|${rfb_seller_nif}|${seller_fullname}|${seller_address}\r\n`;
 
@@ -100,29 +97,14 @@ export function createPermutationOp(obj) {
     const rfb_user1_coin_quantity = user1_coin_quantity.toFixed(10).replace(/\./g, ',');
     const rfb_user2_coin_quantity = user2_coin_quantity.toFixed(10).replace(/\./g, ',');
 
-    const rfb_user1_identity_type = (user1_identity_type === 'CPF') ? 1 
-    : (user1_identity_type === 'CNPJ') ? 2 
-    : (user1_identity_type === 'NIF_PF') ? 3 
-    : (user1_identity_type === 'NIF_PJ') ? 4
-    : (user1_identity_type === 'PASSPORT') ? 5
-    : (user1_identity_type === 'COUNTRY_NO_ID') ? 6
-    : (user1_identity_type === 'USER_NO_ID') ? 7
-    : '';
+    const rfb_user1_identity_type = getIdentityRFB(user1_identity_type);
+    const rfb_user2_identity_type = getIdentityRFB(user2_identity_type);
 
-    const rfb_user1_cpf = (user1_identity_type === 'CPF' || user1_identity_type === 'CNPJ') ? user1_document.match(/\d+/g).join('') : '';
-    const rfb_user1_nif = (user1_identity_type === 'NIF_PF' || user1_identity_type === 'NIF_PJ' || user1_identity_type === 'PASSPORT') ? user1_document.match(/\d+/g).join('') : '';
+    const rfb_user1_cpf = ([1,2].indexOf(rfb_user1_identity_type)) ? user1_document.match(/\d+/g).join('') : '';
+    const rfb_user1_nif = ([3,4,5].indexOf(rfb_user1_identity_type)) ? user1_document.match(/\d+/g).join('') : '';
 
-    const rfb_user2_identity_type = (user1_identity_type === 'CPF') ? 1 
-    : (user2_identity_type === 'CNPJ') ? 2 
-    : (user2_identity_type === 'NIF_PF') ? 3 
-    : (user2_identity_type === 'NIF_PJ') ? 4
-    : (user2_identity_type === 'PASSPORT') ? 5
-    : (user2_identity_type === 'COUNTRY_NO_ID') ? 6
-    : (user2_identity_type === 'USER_NO_ID') ? 7
-    : '';
+    const rfb_user2_cpf = ([1,2].indexOf(rfb_user2_identity_type)) ? user2_document.match(/\d+/g).join('') : '';
+    const rfb_user2_nif = ([3,4,5].indexOf(rfb_user2_identity_type)) ? user2_document.match(/\d+/g).join('') : '';
 
-    const rfb_user2_cpf = (user2_identity_type === 'CPF' || user2_identity_type === 'CNPJ') ? user2_document.match(/\d+/g).join('') : '';
-    const rfb_user2_nif = (user2_identity_type === 'NIF_PF' || user2_identity_type === 'NIF_PJ' || user2_identity_type === 'PASSPORT') ? user2_document.match(/\d+/g).join('') : '';
-    
     return `${line_type}|${date}|${id}|${operation_code}|${rfb_brl_fees}|${user1_coin_symbol}|${rfb_user1_coin_quantity}|${rfb_user1_identity_type}|${user1_country}|${rfb_user1_cpf}|${rfb_user1_nif}|${user1_fullname}|${user1_address}${user2_coin_symbol}|${rfb_user2_coin_quantity}|${rfb_user2_identity_type}|${user2_country}|${rfb_user2_cpf}|${rfb_user2_nif}|${user2_fullname}|${user2_address}\r\n`;
 }
