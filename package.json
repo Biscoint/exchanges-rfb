@@ -26,6 +26,7 @@
   "dependencies": {
     "cpf-cnpj-validator": "^0.1.0",
     "esm": "^3.2.25",
+    "moment": "^2.24.0",
     "simpl-schema": "^1.5.5"
   }
 }

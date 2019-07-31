@@ -12,8 +12,6 @@ class RFBFile {
     }
 
     addBuySellOperation(obj){
-        if(typeof obj.date === 'number') obj.date = obj.date.toString();
-
         obj = buySellOperationSchema.clean(obj);
         buySellOperationSchema.validate(obj);
         this.buySellOps.push(obj);
