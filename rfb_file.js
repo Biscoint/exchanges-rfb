@@ -43,9 +43,9 @@ export function createBuySellOp(obj) {
     + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1).toString() : (date.getMonth()+1).toString())
     + (date.getFullYear().toString());
 
-    const rfb_brl_value = Number(brl_value.replace(/\,/g, '.').match(/[0-9.]/g).join('')).toFixed(2).replace(/\./g, ',');
-    const rfb_brl_fees = Number(brl_fees.replace(/\,/g, '.').match(/[0-9.]/g).join('')).toFixed(2).replace(/\./g, ',');
-    const rfb_coin_quantity = Number(coin_quantity.match(/[0-9.]/g).join('')).toFixed(10).replace(/\./g, ',');
+    const rfb_brl_value = brl_value.toFixed(2).replace(/\./g, ',');
+    const rfb_brl_fees = brl_fees.toFixed(2).replace(/\./g, ',');
+    const rfb_coin_quantity = coin_quantity.toFixed(10).replace(/\./g, ',');
 
     const rfb_buyer_id_type = (buyer_id_type === 'CPF') ? 1 
     : (buyer_id_type === 'CNPJ') ? 2 
@@ -68,8 +68,8 @@ export function createBuySellOp(obj) {
     : (seller_id_type === 'USER_NO_ID') ? 7
     : '';
 
-    const rfb_seller_cpf = (seller_id_type === 'CPF' || seller_id_type === 'CNPJ') ? seller_document.match(/\d+/g).join('') : '';
-    const rfb_seller_nif = (seller_id_type === 'NIF_PF' || seller_id_type === 'NIF_PJ' || seller_id_type === 'PASSPORT') ? seller_document.match(/\d+/g).join('') : '';
+    const rfb_seller_cpf = (seller_id_type === 'CPF' || seller_id_type === 'CNPJ') ? seller_document : '';
+    const rfb_seller_nif = (seller_id_type === 'NIF_PF' || seller_id_type === 'NIF_PJ' || seller_id_type === 'PASSPORT') ? seller_document : '';
 
     return `${line_type}|${rfb_date}|${id}|${operation_code}|${rfb_brl_value}|${rfb_brl_fees}|${coin_symbol}|${rfb_coin_quantity}|${rfb_buyer_id_type}|${buyer_country}|${rfb_buyer_cpf}|${rfb_buyer_nif}|${buyer_fullname}|${buyer_address}|${rfb_seller_id_type}|${seller_country}|${rfb_seller_cpf}|${rfb_seller_nif}|${seller_fullname}|${seller_address}\r\n`;
 }

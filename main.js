@@ -1,9 +1,10 @@
 
-import { exchangeDataSchema } from './schemas.js';
+import { exchangeDataSchema, buySellOperationSchema } from './schemas.js';
 import { createHeader, createBuySellOp, createFooter } from './rfb_file.js';
 
 class RFBFile {
     constructor(exchange_data){
+        exchange_data = exchangeDataSchema.clean(exchange_data);
         exchangeDataSchema.validate(exchange_data);
 
         this.exchange_data = exchange_data;
@@ -11,6 +12,10 @@ class RFBFile {
     }
 
     addBuySellOperation(obj){
+        if(typeof obj.date === 'number') obj.date = obj.date.toString();
+
+        obj = buySellOperationSchema.clean(obj);
+        buySellOperationSchema.validate(obj);
         this.buySellOps.push(obj);
     }
 
@@ -20,7 +25,7 @@ class RFBFile {
 
         res += createHeader(this.exchange_data)
         this.buySellOps.forEach(val => {
-            totalValue += Number(val.brl_value.replace(/\,/g, '.').match(/[0-9.]/g).join(''));
+            totalValue += val.brl_value;
             res += createBuySellOp(val);
         });
 
