@@ -1,6 +1,6 @@
 
 import { exchangeDataSchema, buySellOperationSchema } from './schemas.js';
-import { createHeader, createBuySellOp, createFooter } from './rfb_file.js';
+import { createHeader, createBuySellOp, createPermutationOp, createFooter } from './rfb_file.js';
 
 class RFBFile {
     constructor(exchange_data){
@@ -9,12 +9,17 @@ class RFBFile {
 
         this.exchange_data = exchange_data;
         this.buySellOps = [];
+        this.permutationOps = [];
     }
 
     addBuySellOperation(obj){
         obj = buySellOperationSchema.clean(obj);
         buySellOperationSchema.validate(obj);
         this.buySellOps.push(obj);
+    }
+
+    addPermutationOperation(obj){
+        this.permutationOps.push(obj);
     }
 
     exportFile(){
@@ -25,6 +30,9 @@ class RFBFile {
         this.buySellOps.forEach(val => {
             totalValue += val.brl_value;
             res += createBuySellOp(val);
+        });
+        this.permutationOps.forEach(val => {
+            res += createPermutationOp(val);
         });
 
         res += createFooter({ buySellQuantity: this.buySellOps.length, buySellTotal: totalValue })

@@ -147,3 +147,7 @@ export const buySellOperationSchema = new SimpleSchema({
         max: 120
     }
 });
+
+export const permutationOperationSchema = new SimpleSchema({
+    // TODO
+});
