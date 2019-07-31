@@ -1,0 +1,31 @@
+{
+  "name": "exchanges-rfb",
+  "version": "0.0.1",
+  "description": "Lib to format data to IN 1888 from Receita Federal do Brasil.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Biscoint/exchanges-rfb.git"
+  },
+  "keywords": [
+    "receita",
+    "federal",
+    "rfb",
+    "in1888",
+    "exchanges"
+  ],
+  "author": "biscoint",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Biscoint/exchanges-rfb/issues"
+  },
+  "homepage": "https://github.com/Biscoint/exchanges-rfb",
+  "dependencies": {
+    "cpf-cnpj-validator": "^0.1.0",
+    "esm": "^3.2.25",
+    "simpl-schema": "^1.5.5"
+  }
+}
