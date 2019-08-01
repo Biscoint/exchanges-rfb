@@ -1,6 +1,6 @@
 
-import { exchangeDataSchema, buySellOperationSchema, permutationOperationSchema, depositOperationSchema, withdrawOperationSchema } from './schemas.js';
-import { createHeader, createBuySellOp, createPermutationOp, createDepositOp, createWithdrawOp, createFooter } from './rfb_file.js';
+import { exchangeDataSchema, buySellOperationSchema, permutationOperationSchema, depositOperationSchema, withdrawOperationSchema, paymentOperationSchema, otherOperationSchema } from './schemas.js';
+import { createHeader, createBuySellOp, createPermutationOp, createDepositOp, createWithdrawOp, createPaymentOp, createOtherOp, createFooter } from './rfb_file.js';
 
 class RFBFile {
     constructor(exchange_data){
@@ -40,6 +40,17 @@ class RFBFile {
         this.withdrawOps.push(obj);
     }
 
+    addPaymentOperation(obj){
+        obj = paymentOperationSchema.clean(obj);
+        paymentOperationSchema.validate(obj);
+        this.paymentOps.push(obj);
+    }
+
+    addOtherOperation(obj){
+        obj = otherOperationSchema.clean(obj);
+        otherOperationSchema.validate(obj);
+        this.otherOps.push(obj);
+    }
 
     exportFile(){
         let res = '';
@@ -58,6 +69,12 @@ class RFBFile {
         });
         this.withdrawOps.forEach(val => {
             res += createWithdrawOp(val);
+        });
+        this.paymentOps.forEach(val => {
+            res += createPaymentOp(val);
+        });
+        this.otherOps.forEach(val => {
+            res += createOtherOp(val);
         });
 
         res += createFooter({ 

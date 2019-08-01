@@ -206,3 +206,45 @@ export const withdrawOperationSchema = new SimpleSchema({
     fullname: commonSchemas.name,
     address: commonSchemas.address,
 });
+
+export const paymentOperationSchema = new SimpleSchema({
+    date: commonSchemas.date,
+    id: commonSchemas.id,
+    brl_fees: commonSchemas.brl_fees,
+
+    coin_symbol: commonSchemas.coin_symbol,
+    coin_quantity: commonSchemas.coin,
+
+    payer_identity_type: commonSchemas.identity_type,
+    payer_country: commonSchemas.country,
+    payer_document: commonSchemas.document,
+    payer_fullname: commonSchemas.name,
+    payer_address: commonSchemas.address,
+
+    receiver_identity_type: commonSchemas.identity_type,
+    receiver_country: commonSchemas.country,
+    receiver_document: commonSchemas.document,
+    receiver_fullname: commonSchemas.name,
+    receiver_address: commonSchemas.address,
+});
+
+export const otherOperationSchema = new SimpleSchema({
+    date: commonSchemas.date,
+    id: commonSchemas.id,
+    brl_fees: commonSchemas.brl_fees,
+
+    coin_symbol: commonSchemas.coin_symbol,
+    coin_quantity: commonSchemas.coin,
+
+    origin_identity_type: commonSchemas.identity_type,
+    origin_country: commonSchemas.country,
+    origin_document: commonSchemas.document,
+    origin_fullname: commonSchemas.name,
+    origin_address: commonSchemas.address,
+
+    recipient_identity_type: commonSchemas.identity_type,
+    recipient_country: commonSchemas.country,
+    recipient_document: commonSchemas.document,
+    recipient_fullname: commonSchemas.name,
+    recipient_address: commonSchemas.address,
+});
