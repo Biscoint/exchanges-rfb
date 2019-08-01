@@ -2,26 +2,34 @@ import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
 import { cpf, cnpj } from 'cpf-cnpj-validator';
 
+function ensureAllowedCharacters(val) {
+    return (this ? this.value : val).replace(/[^\x20-\x7E]|/g, '');
+}
+
 const commonSchemas = {
     id: {
         type: String,
         min: 1,
         max: 1024,
+        autoValue: ensureAllowedCharacters,
     },
     name: {
         type: String,
         min: 1,
         max: 80,
+        autoValue: ensureAllowedCharacters,
     },
     address: {
         type: String,
         min: 1,
-        max: 120
+        max: 120,
+        autoValue: ensureAllowedCharacters,
     },
     country: {
         type: String,
         min: 2,
         max: 2,
+        autoValue: ensureAllowedCharacters,
     },
     identity_type: {
         type: String,
@@ -31,6 +39,7 @@ const commonSchemas = {
         type: String,
         min: 1,
         max: 80,
+        autoValue: ensureAllowedCharacters,
         regEx: SimpleSchema.RegEx.Url,
     },
     date: {
@@ -74,6 +83,7 @@ const commonSchemas = {
         type: String,
         min: 1,
         max: 10,
+        autoValue: ensureAllowedCharacters,
     },
     document: {
         type: String,
@@ -82,8 +92,9 @@ const commonSchemas = {
         autoValue: function () {
             if(this.siblingField(this.key.split("_")[0] + '_identity_type').value === 'CPF' 
             || this.siblingField(this.key.split("_")[0] + '_identity_type').value === 'CNPJ'){
-                return this.value.match(/\d+/g).join('');
+                return ensureAllowedCharacters(this.value.match(/\d+/g).join(''));
             }
+            return ensureAllowedCharacters(this.value);
         },
         custom: function() {
             if(this.siblingField(this.key.split("_")[0] + '_identity_type').value === 'CPF'){
