@@ -3,13 +3,12 @@ import moment from 'moment';
 import { cpf, cnpj } from 'cpf-cnpj-validator';
 
 function ensureAllowedCharacters(val) {
-    return ''+(this ? this.value : val).replace(/[^\x20-\x7E]|/g, '');
+    return (this ? this.value : val) || ''.replace(/[^\x20-\x7E]|/g, '');
 }
 
 const commonSchemas = {
     id: {
         type: String,
-        min: 1,
         max: 1024,
         autoValue: ensureAllowedCharacters,
         required: false,
@@ -28,7 +27,6 @@ const commonSchemas = {
     },
     country: {
         type: String,
-        min: 2,
         max: 2,
         autoValue: ensureAllowedCharacters,
         required: false,
@@ -103,17 +101,18 @@ const commonSchemas = {
     },
     document: {
         type: String,
-        min: 1,
         max: 30,
         autoValue: function () {
-            if(this.siblingField(this.key.split("_")[0] + '_identity_type').value === 'CPF' 
-            || this.siblingField(this.key.split("_")[0] + '_identity_type').value === 'CNPJ'){
-                return ensureAllowedCharacters(this.value.match(/\d+/g).join(''));
+            if(this.value){
+                if(this.siblingField(this.key.split("_")[0] + '_identity_type').value === 'CPF' 
+                || this.siblingField(this.key.split("_")[0] + '_identity_type').value === 'CNPJ'){
+                    return ensureAllowedCharacters((this.value).match(/\d+/g).join(''));
+                }
             }
             return ensureAllowedCharacters(this.value);
         },
         custom: function() {
-            if(this.value !== ''){
+            if(this.value){
                 if(this.siblingField(this.key.split("_")[0] + '_identity_type').value === 'CPF'){
                     return cpf.isValid(this.value) ? undefined : 'Invalid CPF';
                 } else if(this.siblingField(this.key.split("_")[0] + '_identity_type').value === 'CNPJ'){
