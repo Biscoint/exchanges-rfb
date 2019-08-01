@@ -3,7 +3,7 @@ import moment from 'moment';
 import { cpf, cnpj } from 'cpf-cnpj-validator';
 
 function ensureAllowedCharacters(val) {
-    return (this ? this.value : val).replace(/[^\x20-\x7E]|/g, '');
+    return ''+(this ? this.value : val).replace(/[^\x20-\x7E]|/g, '');
 }
 
 const commonSchemas = {
@@ -12,6 +12,7 @@ const commonSchemas = {
         min: 1,
         max: 1024,
         autoValue: ensureAllowedCharacters,
+        required: false,
     },
     name: {
         type: String,
@@ -30,6 +31,7 @@ const commonSchemas = {
         min: 2,
         max: 2,
         autoValue: ensureAllowedCharacters,
+        required: false,
     },
     identity_type: {
         type: String,
@@ -68,6 +70,20 @@ const commonSchemas = {
             return this.value.toFixed(2).length-1 <= 16 ? undefined : 'Value exceeds the maximum allowed digits.'
         }
     },
+    brl_fees: {
+        type: Number,
+        autoValue: function() {
+            if(typeof this.value === 'string'){
+                return Number(this.value.replace(/\,/g, '.').match(/[0-9.]/g).join(''));
+            } else if (!this.value) {
+                return 0;
+            }
+        },
+        custom: function() {
+            return this.value.toFixed(2).length-1 <= 16 ? undefined : 'Value exceeds the maximum allowed digits.'
+        },
+        required: false,
+    },
     coin: {
         type: Number,
         autoValue: function() {
@@ -97,13 +113,16 @@ const commonSchemas = {
             return ensureAllowedCharacters(this.value);
         },
         custom: function() {
-            if(this.siblingField(this.key.split("_")[0] + '_identity_type').value === 'CPF'){
-                return cpf.isValid(this.value) ? undefined : 'Invalid CPF';
+            if(this.value !== ''){
+                if(this.siblingField(this.key.split("_")[0] + '_identity_type').value === 'CPF'){
+                    return cpf.isValid(this.value) ? undefined : 'Invalid CPF';
+                } else if(this.siblingField(this.key.split("_")[0] + '_identity_type').value === 'CNPJ'){
+                    return cnpj.isValid(this.value) ? undefined : 'Invalid CNPJ';
+                }
             }
-            if(this.siblingField(this.key.split("_")[0] + '_identity_type').value === 'CNPJ'){
-                return cnpj.isValid(this.value) ? undefined : 'Invalid CNPJ';
-            }
+
         },
+        required: false,
     }
 };
 
@@ -122,7 +141,7 @@ export const buySellOperationSchema = new SimpleSchema({
     date: commonSchemas.date,
     id: commonSchemas.id,
     brl_value: commonSchemas.brl,
-    brl_fees: commonSchemas.brl,
+    brl_fees: commonSchemas.brl_fees,
     coin_symbol: commonSchemas.coin_symbol,
     coin_quantity: commonSchemas.coin,
     buyer_identity_type: commonSchemas.identity_type,
@@ -140,7 +159,7 @@ export const buySellOperationSchema = new SimpleSchema({
 export const permutationOperationSchema = new SimpleSchema({
     date: commonSchemas.date,
     id: commonSchemas.id,
-    brl_fees: commonSchemas.brl,
+    brl_fees: commonSchemas.brl_fees,
 
     user1_coin_symbol: commonSchemas.coin_symbol,
     user1_coin_quantity: commonSchemas.coin,
@@ -162,7 +181,7 @@ export const permutationOperationSchema = new SimpleSchema({
 export const depositOperationSchema = new SimpleSchema({
     date: commonSchemas.date,
     id: commonSchemas.id,
-    brl_fees: commonSchemas.brl,
+    brl_fees: commonSchemas.brl_fees,
 
     coin_symbol: commonSchemas.coin_symbol,
     coin_quantity: commonSchemas.coin,
@@ -177,7 +196,7 @@ export const depositOperationSchema = new SimpleSchema({
 export const withdrawOperationSchema = new SimpleSchema({
     date: commonSchemas.date,
     id: commonSchemas.id,
-    brl_fees: commonSchemas.brl,
+    brl_fees: commonSchemas.brl_fees,
 
     coin_symbol: commonSchemas.coin_symbol,
     coin_quantity: commonSchemas.coin,

@@ -12,6 +12,8 @@ class RFBFile {
         this.permutationOps = [];
         this.depositOps = [];
         this.withdrawOps = [];
+        this.paymentOps = [];
+        this.otherOps = [];
     }
 
     addBuySellOperation(obj){
@@ -63,8 +65,8 @@ class RFBFile {
             permutationQuantity: this.permutationOps.length,
             depositQuantity: this.depositOps.length,
             withdrawQuantity: this.withdrawOps.length,
-            paymentQuantity: 0,
-            otherQuantity: 0,
+            paymentQuantity: this.paymentOps.length,
+            otherQuantity: this.otherOps.length,
             buySellTotal: totalValue,
         });
 
