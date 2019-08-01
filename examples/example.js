@@ -26,10 +26,49 @@ biscointTestex.addBuySellOperation({
     seller_address: 'Rua Nao Existente QD 0 LT 0', // Full address
 });
 
+biscointTestex.addPermutationOperation({ 
+    date: '10/05/2019',
+    //id: '', Id is optional
+    //brl_fees, Fees is optional
+
+    user1_coin_symbol: 'BTC',
+    user1_coin_quantity: '0.01',
+    user1_identity_type: 'CPF',
+    user1_country: 'BR',
+    //user1_document, Document is optional
+    user1_fullname: 'CR. HOLYVEYRAH',
+    user1_address: 'RUA DAS PIRAMIDES, QD 10, LT 17',
+
+    user2_coin_symbol: 'USDT',
+    user2_coin_quantity: '1003.00',
+    user2_identity_type: 'NIF_PJ',
+    user2_country: 'US',
+    //user2_document, Document is optional
+    user2_fullname: 'BITEX EXCHANGE',
+    //user2_address, Address is optional
+});
+
+biscointTestex.addDepositOperation({
+    date: 1564672373,
+    id: 'REALLY_UNIQUE_ID',
+    brl_fees: 0,
+
+    coin_symbol: 'BTC',
+    coin_quantity: 0.000004,
+
+    identity_type: 'CNPJ',
+    country: 'BR',
+    //document: '',
+    fullname: 'CASA DE CAMBIO',
+    //address,
+});
+
 console.log(biscointTestex.exportFile());
 
 /* console.log output:
 0000|BiscointTestex|17869530000173|https://testex.biscoint.io
 0110|25052019|a12345|I|1500,80|1,49|BTC|0,0000001000|1|BR||44246742074|NOME COMPLETO|Rua Nao Existente QD 0 LT 0|1|BR||43808960051|NOME COMPLETO|Rua Nao Existente QD 0 LT 0
-9999|1|1500,80|0|0|0|0|0|0|0 
+0210|10052019||II|0,00|BTC|0,0100000000|1|BR|||CR. HOLYVEYRAH|RUA DAS PIRAMIDES, QD 10, LT 17|USDT|1003,0000000000|4|US|||BITEX EXCHANGE|
+0410|01082019|REALLY_UNIQUE_ID|IV|0,00|BTC|0,0000040000|2|BR|||CASA DE CAMBIO|
+9999|1|1500,80|0|1|1|0|0|0|0
 */

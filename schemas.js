@@ -21,9 +21,9 @@ const commonSchemas = {
     },
     address: {
         type: String,
-        min: 1,
         max: 120,
         autoValue: ensureAllowedCharacters,
+        required: false,
     },
     country: {
         type: String,
