@@ -107,4 +107,65 @@ export function createPermutationOp(obj) {
     const rfb_user2_nif = ([3,4,5].indexOf(rfb_user2_identity_type)) ? user2_document.match(/\d+/g).join('') : '';
 
     return `${line_type}|${date}|${id}|${operation_code}|${rfb_brl_fees}|${user1_coin_symbol}|${rfb_user1_coin_quantity}|${rfb_user1_identity_type}|${user1_country}|${rfb_user1_cpf}|${rfb_user1_nif}|${user1_fullname}|${user1_address}${user2_coin_symbol}|${rfb_user2_coin_quantity}|${rfb_user2_identity_type}|${user2_country}|${rfb_user2_cpf}|${rfb_user2_nif}|${user2_fullname}|${user2_address}\r\n`;
+
+}
+
+export function createDepositOp(obj) {
+    const line_type = '0410';
+    const operation_code = 'IV';
+    const {
+        date,
+        id,
+        brl_fees,
+
+        coin_symbol,
+        coin_quantity,
+
+        identity_type,
+        country,
+        document,
+        fullname,
+        address,
+    } = obj;
+
+    const rfb_brl_fees = brl_fees.toFixed(2).replace(/\./g, ',');
+    const rfb_coin_quantity = coin_quantity.toFixed(10).replace(/\./g, ',');
+
+    const rfb_identity_type = getIdentityRFB(identity_type);
+
+    const rfb_cpf = ([1,2].indexOf(rfb_identity_type)) ? document.match(/\d+/g).join('') : '';
+    const rfb_nif = ([3,4,5].indexOf(rfb_identity_type)) ? document.match(/\d+/g).join('') : '';
+
+    return `${line_type}|${date}|${id}|${operation_code}|${rfb_brl_fees}|${coin_symbol}|${rfb_coin_quantity}|${rfb_identity_type}|${country}|${rfb_cpf}|${rfb_nif}|${fullname}|${address}\r\n`;
+
+}
+
+export function createWithdrawOp(obj) {
+    const line_type = '0510';
+    const operation_code = 'V';
+    const {
+        date,
+        id,
+        brl_fees,
+
+        coin_symbol,
+        coin_quantity,
+
+        identity_type,
+        country,
+        document,
+        fullname,
+        address,
+    } = obj;
+
+    const rfb_brl_fees = brl_fees.toFixed(2).replace(/\./g, ',');
+    const rfb_coin_quantity = coin_quantity.toFixed(10).replace(/\./g, ',');
+
+    const rfb_identity_type = getIdentityRFB(identity_type);
+
+    const rfb_cpf = ([1,2].indexOf(rfb_identity_type)) ? document.match(/\d+/g).join('') : '';
+    const rfb_nif = ([3,4,5].indexOf(rfb_identity_type)) ? document.match(/\d+/g).join('') : '';
+
+    return `${line_type}|${date}|${id}|${operation_code}|${rfb_brl_fees}|${coin_symbol}|${rfb_coin_quantity}|${rfb_identity_type}|${country}|${rfb_cpf}|${rfb_nif}|${fullname}|${address}\r\n`;
+
 }

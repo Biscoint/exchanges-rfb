@@ -67,7 +67,7 @@ const commonSchemas = {
             }
         },
         custom: function() {
-            return this.value.toFixed(10).length-1 <= 30 ? undefined : 'Value exceeds the maximum allowed digits.'
+            return this.value.toFixed(10).length-1 <= 30 ? this.value <= 0 ? undefined : 'Value cannot be zero or less than zero' : 'Value exceeds the maximum allowed digits.';
         }
     },
     coin_symbol: {
@@ -146,4 +146,34 @@ export const permutationOperationSchema = new SimpleSchema({
     user2_document: commonSchemas.document,
     user2_fullname: commonSchemas.name,
     user2_address: commonSchemas.address,
+});
+
+export const depositOperationSchema = new SimpleSchema({
+    date: commonSchemas.date,
+    id: commonSchemas.id,
+    brl_fees: commonSchemas.brl,
+
+    coin_symbol: commonSchemas.coin_symbol,
+    coin_quantity: commonSchemas.coin,
+
+    identity_type: commonSchemas.identity_type,
+    country: commonSchemas.country,
+    document: commonSchemas.document,
+    fullname: commonSchemas.name,
+    address: commonSchemas.address,
+});
+
+export const withdrawOperationSchema = new SimpleSchema({
+    date: commonSchemas.date,
+    id: commonSchemas.id,
+    brl_fees: commonSchemas.brl,
+
+    coin_symbol: commonSchemas.coin_symbol,
+    coin_quantity: commonSchemas.coin,
+
+    identity_type: commonSchemas.identity_type,
+    country: commonSchemas.country,
+    document: commonSchemas.document,
+    fullname: commonSchemas.name,
+    address: commonSchemas.address,
 });
