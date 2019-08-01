@@ -27,3 +27,9 @@ biscointTestex.addBuySellOperation({
 });
 
 console.log(biscointTestex.exportFile());
+
+/* console.log output:
+0000|BiscointTestex|17869530000173|https://testex.biscoint.io
+0110|25052019|a12345|I|1500,80|1,49|BTC|0,0000001000|1|BR||44246742074|NOME COMPLETO|Rua Nao Existente QD 0 LT 0|1|BR||43808960051|NOME COMPLETO|Rua Nao Existente QD 0 LT 0
+9999|1|1500,80|0|0|0|0|0|0|0 
+*/

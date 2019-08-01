@@ -67,7 +67,7 @@ const commonSchemas = {
             }
         },
         custom: function() {
-            return this.value.toFixed(10).length-1 <= 30 ? this.value <= 0 ? undefined : 'Value cannot be zero or less than zero' : 'Value exceeds the maximum allowed digits.';
+            return this.value.toFixed(10).length-1 <= 30 ? this.value >= 0 ? undefined : 'Value cannot be zero or less than zero' : 'Value exceeds the maximum allowed digits.';
         }
     },
     coin_symbol: {

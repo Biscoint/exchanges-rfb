@@ -58,7 +58,15 @@ class RFBFile {
             res += createWithdrawOp(val);
         });
 
-        res += createFooter({ buySellQuantity: this.buySellOps.length, buySellTotal: totalValue })
+        res += createFooter({ 
+            buySellQuantity: this.buySellOps.length,
+            permutationQuantity: this.permutationOps.length,
+            depositQuantity: this.depositOps.length,
+            withdrawQuantity: this.withdrawOps.length,
+            paymentQuantity: 0,
+            otherQuantity: 0,
+            buySellTotal: totalValue,
+        });
 
         return res;
     }
