@@ -7,7 +7,7 @@ Lib to format data to IN 1888 from Receita Federal do Brasil.
 ### [NPM](http://npmjs.org/)
 - Command: ```npm install exchanges-rfb --save```
 
-## Usage Example:
+## Usage Example
 
 ```js
 import Exchange from "exchanges-rfb"
