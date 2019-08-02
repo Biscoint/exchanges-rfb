@@ -2,10 +2,10 @@
 Lib to format data to IN 1888 from Receita Federal do Brasil.
 
 ## Installing
-
-```
-npm install exchanges-rfb
-```
+### YARN
+```yarn add exchanges-rfb```
+### NPM
+```npm install exchanges-rfb```
 
 ## Usage Example:
 
