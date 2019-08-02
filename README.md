@@ -10,17 +10,34 @@ Lib to format data to IN 1888 from Receita Federal do Brasil.
 ## Usage Example:
 
 ```js
-import Exchange from 'exchanges-rfb';
+import Exchange from "exchanges-rfb"
 
 const MyEx = new Exchange({
-    exchange_name: 'BiscointEx',
-    exchange_cnpj: '17.869.530/0001-73',
-    exchange_url: 'https://testex.biscoint.io'
-});
+  exchange_name: "BiscointEx",
+  exchange_cnpj: "17.869.530/0001-73",
+  exchange_url: "https://testex.biscoint.io"
+})
 
-MyEx.addBuySellOperation({ date, id, brl_value, brl_fees, coin_symbol, coin_quantity, buyer_identity_type, buyer_country, buyer_document, buyer_fullname, buyer_address, seller_identity_type, seller_country, seller_document, seller_fullname, seller_address });
+MyEx.addBuySellOperation({
+  date,
+  id,
+  brl_value,
+  brl_fees,
+  coin_symbol,
+  coin_quantity,
+  buyer_identity_type,
+  buyer_country,
+  buyer_document,
+  buyer_fullname,
+  buyer_address,
+  seller_identity_type,
+  seller_country,
+  seller_document,
+  seller_fullname,
+  seller_address
+})
 
-console.log(MyEx.exportFile());
+console.log(MyEx.exportFile())
 ```
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
