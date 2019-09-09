@@ -24,7 +24,7 @@ export function createFooter(obj) {
     const sellOnlyQuantity = 0;
     const annualDeclarationQuantity = 0;
 
-    const rfb_buySellTotal = Number(buySellTotal).toFixed(2).replace(/\./g, ',');
+    const rfb_buySellTotal = Number(buySellTotal).toFixed(2).replace(/\./g, '');
     return `${line_type}|${buySellQuantity}|${rfb_buySellTotal}|${sellOnlyQuantity}|${permutationQuantity}|${depositQuantity}|${withdrawQuantity}|${paymentQuantity}|${otherQuantity}|${annualDeclarationQuantity}\r\n`;
 }
 
@@ -52,9 +52,9 @@ export function createBuySellOp(obj) {
         seller_address,
     } = obj;
 
-    const rfb_brl_value = brl_value.toFixed(2).replace(/\./g, ',');
-    const rfb_brl_fees = brl_fees.toFixed(2).replace(/\./g, ',');
-    const rfb_coin_quantity = coin_quantity.toFixed(10).replace(/\./g, ',');
+    const rfb_brl_value = brl_value.toFixed(2).replace(/\./g, '');
+    const rfb_brl_fees = brl_fees.toFixed(2).replace(/\./g, '');
+    const rfb_coin_quantity = coin_quantity.toFixed(10).replace(/\./g, '');
 
     const rfb_buyer_identity_type = getIdentityRFB(buyer_identity_type);
 
@@ -94,9 +94,9 @@ export function createPermutationOp(obj) {
         user2_address,
     } = obj;
 
-    const rfb_brl_fees = brl_fees.toFixed(2).replace(/\./g, ',');
-    const rfb_user1_coin_quantity = user1_coin_quantity.toFixed(10).replace(/\./g, ',');
-    const rfb_user2_coin_quantity = user2_coin_quantity.toFixed(10).replace(/\./g, ',');
+    const rfb_brl_fees = brl_fees.toFixed(2).replace(/\./g, '');
+    const rfb_user1_coin_quantity = user1_coin_quantity.toFixed(10).replace(/\./g, '');
+    const rfb_user2_coin_quantity = user2_coin_quantity.toFixed(10).replace(/\./g, '');
 
     const rfb_user1_identity_type = getIdentityRFB(user1_identity_type);
     const rfb_user2_identity_type = getIdentityRFB(user2_identity_type);
@@ -128,8 +128,8 @@ export function createDepositOp(obj) {
         address,
     } = obj;
 
-    const rfb_brl_fees = brl_fees.toFixed(2).replace(/\./g, ',');
-    const rfb_coin_quantity = coin_quantity.toFixed(10).replace(/\./g, ',');
+    const rfb_brl_fees = brl_fees.toFixed(2).replace(/\./g, '');
+    const rfb_coin_quantity = coin_quantity.toFixed(10).replace(/\./g, '');
 
     const rfb_identity_type = getIdentityRFB(identity_type);
 
@@ -157,8 +157,8 @@ export function createWithdrawOp(obj) {
         address,
     } = obj;
 
-    const rfb_brl_fees = brl_fees.toFixed(2).replace(/\./g, ',');
-    const rfb_coin_quantity = coin_quantity.toFixed(10).replace(/\./g, ',');
+    const rfb_brl_fees = brl_fees.toFixed(2).replace(/\./g, '');
+    const rfb_coin_quantity = coin_quantity.toFixed(10).replace(/\./g, '');
 
     const rfb_identity_type = getIdentityRFB(identity_type);
 
@@ -192,8 +192,8 @@ export function createPaymentOp(obj) {
         receiver_address,
     } = obj;
 
-    const rfb_brl_fees = brl_fees.toFixed(2).replace(/\./g, ',');
-    const rfb_coin_quantity = coin_quantity.toFixed(10).replace(/\./g, ',');
+    const rfb_brl_fees = brl_fees.toFixed(2).replace(/\./g, '');
+    const rfb_coin_quantity = coin_quantity.toFixed(10).replace(/\./g, '');
 
     const rfb_payer_identity_type = getIdentityRFB(payer_identity_type);
     const rfb_receiver_identity_type = getIdentityRFB(receiver_identity_type);
@@ -231,8 +231,8 @@ export function createOtherOp(obj) {
         recipient_address,
     } = obj;
 
-    const rfb_brl_fees = brl_fees.toFixed(2).replace(/\./g, ',');
-    const rfb_coin_quantity = coin_quantity.toFixed(10).replace(/\./g, ',');
+    const rfb_brl_fees = brl_fees.toFixed(2).replace(/\./g, '');
+    const rfb_coin_quantity = coin_quantity.toFixed(10).replace(/\./g, '');
 
     const rfb_origin_identity_type = getIdentityRFB(origin_identity_type);
     const rfb_recipient_identity_type = getIdentityRFB(recipient_identity_type);

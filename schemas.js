@@ -65,7 +65,7 @@ const commonSchemas = {
             }
         },
         custom: function() {
-            return this.value.toFixed(2).length-1 <= 16 ? undefined : 'Value exceeds the maximum allowed digits.'
+            return this.value.toFixed(2).length-1 <= 16 ? this.value >= 0 ? undefined : 'Value cannot be zero or less than zero' : 'Value exceeds the maximum allowed digits.'
         }
     },
     brl_fees: {
