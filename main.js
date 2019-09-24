@@ -56,7 +56,16 @@ class RFBFile {
         let res = '';
         let totalValue = 0;
 
-        res += createHeader(this.exchange_data)
+        res += createHeader(this.exchange_data);
+
+        const orderByDate = (a, b) => a.date - b.date;
+        this.buySellOps = this.buySellOps.sort(orderByDate);
+        this.permutationOps = this.permutationOps.sort(orderByDate);
+        this.depositOps = this.depositOps.sort(orderByDate);
+        this.withdrawOps = this.withdrawOps.sort(orderByDate);
+        this.paymentOps = this.paymentOps.sort(orderByDate);
+        this.otherOps = this.otherOps.sort(orderByDate);
+
         this.buySellOps.forEach(val => {
             totalValue += val.brl_value;
             res += createBuySellOp(val);
