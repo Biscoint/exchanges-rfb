@@ -45,15 +45,15 @@ const commonSchemas = {
     date: {
         type: String,
         autoValue: function() {
-            var m = this.value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/) 
+            let m = this.value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/) 
             ? this.value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/) 
             : this.value.match(/^(\d{1,2})(\d{1,2})(\d{4})$/);
 
-            return (m) ? moment(new Date(m[3], m[2]-1, m[1])).format('DDMMYYYY') 
+            return (m) ? moment(new Date(m[3], m[2]-1, m[1])).toISOString()
             : moment(new Date(this.value * 1000)).format('DDMMYYYY') !== 'Invalid date' 
-            ? moment(new Date(this.value * 1000)).format('DDMMYYYY') 
+            ? moment(new Date(this.value * 1000)).toISOString()
             : moment(new Date(this.value)).format('DDMMYYYY') !== 'Invalid date' 
-            ? moment(new Date(this.value)).format('DDMMYYYY') 
+            ? moment(new Date(this.value)).toISOString()
             : null;
         }
     },

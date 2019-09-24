@@ -1,6 +1,6 @@
 {
   "name": "exchanges-rfb",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Lib to format data to IN 1888 from Receita Federal do Brasil.",
   "main": "index.js",
   "module": "main.js",

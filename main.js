@@ -1,4 +1,4 @@
-
+import moment from 'moment';
 import { exchangeDataSchema, buySellOperationSchema, permutationOperationSchema, depositOperationSchema, withdrawOperationSchema, paymentOperationSchema, otherOperationSchema } from './schemas.js';
 import { createHeader, createBuySellOp, createPermutationOp, createDepositOp, createWithdrawOp, createPaymentOp, createOtherOp, createFooter } from './rfb_file.js';
 
@@ -58,7 +58,7 @@ class RFBFile {
 
         res += createHeader(this.exchange_data);
 
-        const orderByDate = (a, b) => a.date - b.date;
+        const orderByDate = (a, b) => moment(a.date) - moment(b.date);
         this.buySellOps = this.buySellOps.sort(orderByDate);
         this.permutationOps = this.permutationOps.sort(orderByDate);
         this.depositOps = this.depositOps.sort(orderByDate);
