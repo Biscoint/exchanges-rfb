@@ -101,4 +101,3 @@ class RFBFile {
 }
 
 export default RFBFile;
-module.exports = RFBFile;
