@@ -1,4 +1,4 @@
-var TestEx = require('../index.js');
+var TestEx = require('../index.js').default;
 var biscointTestex = new TestEx({
     exchange_name: 'BiscointTestex', // Exchange Name
     exchange_cnpj: '17.869.530/0001-73', // Exchange CNPJ
