@@ -67,7 +67,7 @@ class RFBFile {
         this.otherOps = this.otherOps.sort(orderByDate);
 
         this.buySellOps.forEach(val => {
-            totalValue += val.brl_value;
+            totalValue = totalValue + Number(val.brl_value.toFixed(2));
             res += createBuySellOp(val);
         });
         this.permutationOps.forEach(val => {
