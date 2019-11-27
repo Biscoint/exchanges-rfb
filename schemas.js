@@ -3,7 +3,7 @@ import moment from 'moment';
 import { cpf, cnpj } from 'cpf-cnpj-validator';
 
 function ensureAllowedCharacters(val) {
-    return (this ? this.value : val) || ''.replace(/[^\x20-\x7E]|/g, '').replace(/\'/g, '');
+    return String((this ? this.value : val) || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^\x20-\x7E]|/g, '').replace(/\'/g, '');
 }
 
 const commonSchemas = {
