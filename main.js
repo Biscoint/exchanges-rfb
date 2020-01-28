@@ -1,6 +1,25 @@
 import moment from 'moment';
-import { exchangeDataSchema, buySellOperationSchema, permutationOperationSchema, depositOperationSchema, withdrawOperationSchema, paymentOperationSchema, otherOperationSchema } from './schemas.js';
-import { createHeader, createBuySellOp, createPermutationOp, createDepositOp, createWithdrawOp, createPaymentOp, createOtherOp, createFooter } from './rfb_file.js';
+import {
+    exchangeDataSchema,
+    buySellOperationSchema,
+    permutationOperationSchema,
+    depositOperationSchema,
+    withdrawOperationSchema,
+    paymentOperationSchema,
+    otherOperationSchema,
+    balanceReportSchema
+} from './schemas.js';
+import {
+    createHeader,
+    createBuySellOp,
+    createPermutationOp,
+    createDepositOp,
+    createWithdrawOp,
+    createPaymentOp,
+    createOtherOp,
+    createBalanceReportData,
+    createFooter 
+} from './rfb_file.js';
 
 class RFBFile {
     constructor(exchange_data){
@@ -14,6 +33,7 @@ class RFBFile {
         this.withdrawOps = [];
         this.paymentOps = [];
         this.otherOps = [];
+        this.balanceReport = [];
     }
 
     addBuySellOperation(obj){
@@ -52,6 +72,12 @@ class RFBFile {
         this.otherOps.push(obj);
     }
 
+    addBalanceReportData(obj){
+        obj = balanceReportSchema.clean(obj);
+        balanceReportSchema.validate(obj);
+        this.balanceReport.push(obj);
+    }
+
     exportFile(){
         let res = '';
         let totalValue = 0;
@@ -84,6 +110,9 @@ class RFBFile {
         });
         this.otherOps.forEach(val => {
             res += createOtherOp(val);
+        });
+        this.addBalanceReportData.forEach(val => {
+            res += createBalanceReportData(val);
         });
 
         res += createFooter({ 

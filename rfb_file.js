@@ -246,3 +246,33 @@ export function createOtherOp(obj) {
 
     return `${line_type}|${moment(date).format('DDMMYYYY')}|${id}|${operation_code}|${rfb_brl_fees}|${coin_symbol}|${rfb_coin_quantity}|${rfb_origin_identity_type}|${origin_country}|${rfb_origin_cpf}|${rfb_origin_nif}|${origin_fullname}|${origin_address}|${rfb_recipient_identity_type}|${recipient_country}|${rfb_recipient_cpf}|${rfb_recipient_nif}|${recipient_fullname}|${recipient_address}\r\n`;
 }
+
+export function createBalanceReportData(obj) {
+    const line_type_1 = '1000';
+    const line_type_2 = '1010';
+    const {
+        date,
+
+        identity_type,
+        country,
+        document,
+        fullname,
+        address,
+    
+        fiat_balance,
+    
+        coin_symbol,
+        coin_balance,
+    } = obj;
+
+    const rfb_fiat_balance = fiat_balance.toFixed(2).replace(/\./g, '');
+
+    const rfb_coin_balance = coin_balance.toFixed(10).replace(/\./g, '');
+
+    const rfb_identity_type = getIdentityRFB(identity_type);
+
+    const rfb_cpf = (document && [1,2].includes(rfb_identity_type)) ? document.match(/\d+/g).join('') : '';
+    const rfb_nif = (document && [3,4,5].includes(rfb_identity_type)) ? document.match(/\d+/g).join('') : '';
+
+    return `${line_type_1}|${moment(date).format('DDMMYYYY')}|${rfb_identity_type}|${country}|${rfb_cpf}|${rfb_nif}|${fullname}|${address}|${rfb_fiat_balance}\r\n${line_type_2}|${coin_symbol}|${rfb_coin_balance}`;
+}

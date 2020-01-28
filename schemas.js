@@ -248,3 +248,18 @@ export const otherOperationSchema = new SimpleSchema({
     recipient_fullname: commonSchemas.name,
     recipient_address: commonSchemas.address,
 });
+
+export const balanceReportSchema = new SimpleSchema({
+    date: commonSchemas.date,
+
+    identity_type: commonSchemas.identity_type,
+    country: commonSchemas.country,
+    document: commonSchemas.document,
+    fullname: commonSchemas.name,
+    address: commonSchemas.address,
+
+    fiat_balance: commonSchemas.brl,
+
+    coin_symbol: commonSchemas.coin_symbol,
+    coin_balance: commonSchemas.coin,
+});
