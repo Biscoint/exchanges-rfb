@@ -273,5 +273,5 @@ export function createBalanceReportData(obj) {
     const rfb_cpf = (document && [1,2].includes(rfb_identity_type)) ? document.match(/\d+/g).join('') : '';
     const rfb_nif = (document && [3,4,5].includes(rfb_identity_type)) ? document.match(/\d+/g).join('') : '';
 
-    return `${line_type_1}|${moment(date).format('DDMMYYYY')}|${rfb_identity_type}|${country}|${rfb_cpf}|${rfb_nif}|${fullname}|${address}|${rfb_fiat_balance}\r\n${line_type_2}|${coin_symbol}|${rfb_coin_balance}`;
+    return `${line_type_1}|${moment(date).format('DDMMYYYY')}|${rfb_identity_type}|${country}|${rfb_cpf}|${rfb_nif}|${fullname}|${address}|${rfb_fiat_balance}\r\n${line_type_2}|${coin_symbol}|${rfb_coin_balance}\r\n`;
 }
