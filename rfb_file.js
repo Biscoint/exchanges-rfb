@@ -22,11 +22,10 @@ export function createHeader(obj) {
 
 export function createFooter(obj) {
     const line_type = '9999';
-    const { buySellQuantity, permutationQuantity, depositQuantity, withdrawQuantity, paymentQuantity, otherQuantity, buySellTotal } = obj;
-    const annualDeclarationQuantity = 0;
+    const { buySellQuantity, permutationQuantity, depositQuantity, withdrawQuantity, paymentQuantity, otherQuantity, buySellTotal, balanceReportQuantity } = obj;
 
     const rfb_buySellTotal = Number(buySellTotal).toFixed(2).replace(/\./g, '');
-    return `${line_type}|${buySellQuantity}|${rfb_buySellTotal}|${permutationQuantity}|${depositQuantity}|${withdrawQuantity}|${paymentQuantity}|${otherQuantity}|${annualDeclarationQuantity}\r\n`;
+    return `${line_type}|${buySellQuantity}|${rfb_buySellTotal}|${permutationQuantity}|${depositQuantity}|${withdrawQuantity}|${paymentQuantity}|${otherQuantity}|${balanceReportQuantity}\r\n`;
 }
 
 export function createBuySellOp(obj) {

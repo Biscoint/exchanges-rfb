@@ -111,7 +111,7 @@ class RFBFile {
         this.otherOps.forEach(val => {
             res += createOtherOp(val);
         });
-        this.addBalanceReportData.forEach(val => {
+        this.balanceReport.forEach(val => {
             res += createBalanceReportData(val);
         });
 
@@ -122,6 +122,7 @@ class RFBFile {
             withdrawQuantity: this.withdrawOps.length,
             paymentQuantity: this.paymentOps.length,
             otherQuantity: this.otherOps.length,
+            balanceReportQuantity: this.balanceReport.length,
             buySellTotal: totalValue,
         });
 
