@@ -45,14 +45,14 @@ const commonSchemas = {
     date: {
         type: String,
         autoValue: function() {
-            let m = this.value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/) 
-            ? this.value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/) 
+            let m = this.value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/)
+            ? this.value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/)
             : this.value.match(/^(\d{1,2})(\d{1,2})(\d{4})$/);
 
             return (m) ? moment(new Date(m[3], m[2]-1, m[1])).toISOString()
-            : moment(new Date(this.value * 1000)).format('DDMMYYYY') !== 'Invalid date' 
+            : moment(new Date(this.value * 1000)).format('DDMMYYYY') !== 'Invalid date'
             ? moment(new Date(this.value * 1000)).toISOString()
-            : moment(new Date(this.value)).format('DDMMYYYY') !== 'Invalid date' 
+            : moment(new Date(this.value)).format('DDMMYYYY') !== 'Invalid date'
             ? moment(new Date(this.value)).toISOString()
             : null;
         }
@@ -104,7 +104,7 @@ const commonSchemas = {
         max: 30,
         autoValue: function () {
             if(this.value){
-                if(this.siblingField(this.key.split("_")[0] + '_identity_type').value === 'CPF' 
+                if(this.siblingField(this.key.split("_")[0] + '_identity_type').value === 'CPF'
                 || this.siblingField(this.key.split("_")[0] + '_identity_type').value === 'CNPJ'){
                     return ensureAllowedCharacters((this.value).match(/\d+/g).join(''));
                 }
@@ -260,6 +260,17 @@ export const balanceReportSchema = new SimpleSchema({
 
     fiat_balance: commonSchemas.brl,
 
-    coin_symbol: commonSchemas.coin_symbol,
-    coin_balance: commonSchemas.coin,
+    coin_symbol: {
+        ...commonSchemas.coin_symbol,
+        optional: true,
+    },
+    coin_balance: {
+        ...commonSchemas.coin,
+        optional: true,
+    },
+
+    coin_balances: { type: Array },
+    'coin_balances.$': { type: Object },
+    'coin_balances.$.coin_symbol': commonSchemas.coin_symbol,
+    'coin_balances.$.coin_balance': commonSchemas.coin,
 });
