@@ -18,7 +18,7 @@ import {
     createPaymentOp,
     createOtherOp,
     createBalanceReportData,
-    createFooter 
+    createFooter
 } from './rfb_file.js';
 
 class RFBFile {
@@ -115,7 +115,7 @@ class RFBFile {
             res += createBalanceReportData(val);
         });
 
-        res += createFooter({ 
+        res += createFooter({
             buySellQuantity: this.buySellOps.length,
             permutationQuantity: this.permutationOps.length,
             depositQuantity: this.depositOps.length,
