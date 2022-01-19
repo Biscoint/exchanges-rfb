@@ -3,9 +3,9 @@ import moment from 'moment-timezone';
 const DEFAULT_TIMEZONE = 'America/Sao_Paulo';
 
 function getIdentityRFB(identity_type){
-    return (identity_type === 'CPF') ? 1 
-    : (identity_type === 'CNPJ') ? 2 
-    : (identity_type === 'NIF_PF') ? 3 
+    return (identity_type === 'CPF') ? 1
+    : (identity_type === 'CNPJ') ? 2
+    : (identity_type === 'NIF_PF') ? 3
     : (identity_type === 'NIF_PJ') ? 4
     : (identity_type === 'PASSPORT') ? 5
     : (identity_type === 'COUNTRY_NO_ID') ? 6
@@ -37,20 +37,20 @@ export function createFooter(obj) {
 export function createBuySellOp(obj) {
     const line_type = '0110';
     const operation_code = 'I';
-    const { 
+    const {
         date,
         id,
         brl_value,
         brl_fees,
         coin_symbol,
         coin_quantity,
-        
+
         buyer_identity_type,
         buyer_country,
         buyer_document,
         buyer_fullname,
         buyer_address,
-    
+
         seller_identity_type,
         seller_country,
         seller_document,
@@ -78,7 +78,7 @@ export function createBuySellOp(obj) {
 export function createPermutationOp(obj) {
     const line_type = '0210';
     const operation_code = 'II';
-    const { 
+    const {
         date,
         id,
         brl_fees,
@@ -90,7 +90,7 @@ export function createPermutationOp(obj) {
         user1_document,
         user1_fullname,
         user1_address,
-    
+
         user2_coin_symbol,
         user2_coin_quantity,
         user2_identity_type,
@@ -263,21 +263,38 @@ export function createBalanceReportData(obj) {
         document,
         fullname,
         address,
-    
+
         fiat_balance,
-    
-        coin_symbol,
-        coin_balance,
+
+        coin_balances,
+
+        coin_symbol: old_coin_symbol,
+        coin_balance: old_coin_balance,
     } = obj;
 
-    const rfb_fiat_balance = fiat_balance.toFixed(2).replace(/\./g, '');
+    if (!coin_balances) coin_balances = [];
 
-    const rfb_coin_balance = coin_balance.toFixed(10).replace(/\./g, '');
+    if (coin_symbol && coin_balance) {
+        coin_balances.push({
+            coin_symbol: old_coin_symbol,
+            coin_balance: old_coin_balance,
+        });
+    }
+
+    let returnString = `${line_type_1}|${formatDate(date)}|${rfb_identity_type}|${country}|${rfb_cpf}|${rfb_nif}|${fullname}|${address}|${rfb_fiat_balance}\r\n`;
+
+    for ({ coin_symbol, coin_balance } of coin_balances) {
+        const rfb_coin_balance = coin_balance.toFixed(10).replace(/\./g, '');
+
+        returnString += `${line_type_2}|${formatDate(date)}|${rfb_identity_type}|${country}|${rfb_cpf}|${rfb_nif}|${coin_symbol}|${rfb_coin_balance}\r\n`;
+    }
+
+    const rfb_fiat_balance = fiat_balance.toFixed(2).replace(/\./g, '');
 
     const rfb_identity_type = getIdentityRFB(identity_type);
 
     const rfb_cpf = (document && [1,2].includes(rfb_identity_type)) ? document.match(/\d+/g).join('') : '';
     const rfb_nif = (document && [3,4,5].includes(rfb_identity_type)) ? document : '';
 
-    return `${line_type_1}|${formatDate(date)}|${rfb_identity_type}|${country}|${rfb_cpf}|${rfb_nif}|${fullname}|${address}|${rfb_fiat_balance}\r\n${coin_balance !== 0 ? `${line_type_2}|${coin_symbol}|${rfb_coin_balance}|\r\n` : ''}`;
+    return returnString;
 }
