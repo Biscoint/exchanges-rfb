@@ -90,6 +90,7 @@ const commonSchemas = {
             }
         },
         custom: function() {
+            if (!this.value) return;
             return this.value.toFixed(10).length-1 <= 30 ? this.value >= 0 ? undefined : 'Value cannot be zero or less than zero' : 'Value exceeds the maximum allowed digits.';
         }
     },
@@ -262,6 +263,7 @@ export const balanceReportSchema = new SimpleSchema({
 
     coin_symbol: {
         ...commonSchemas.coin_symbol,
+        min: 0,
         optional: true,
     },
     coin_balance: {
@@ -269,7 +271,7 @@ export const balanceReportSchema = new SimpleSchema({
         optional: true,
     },
 
-    coin_balances: { type: Array },
+    coin_balances: { type: Array, optional: true, },
     'coin_balances.$': { type: Object },
     'coin_balances.$.coin_symbol': commonSchemas.coin_symbol,
     'coin_balances.$.coin_balance': commonSchemas.coin,

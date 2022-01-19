@@ -266,27 +266,19 @@ export function createBalanceReportData(obj) {
 
         fiat_balance,
 
-        coin_balances,
-
         coin_symbol: old_coin_symbol,
         coin_balance: old_coin_balance,
     } = obj;
 
+    let { coin_balances } = obj;
+
     if (!coin_balances) coin_balances = [];
 
-    if (coin_symbol && coin_balance) {
+    if (old_coin_symbol && old_coin_balance) {
         coin_balances.push({
             coin_symbol: old_coin_symbol,
             coin_balance: old_coin_balance,
         });
-    }
-
-    let returnString = `${line_type_1}|${formatDate(date)}|${rfb_identity_type}|${country}|${rfb_cpf}|${rfb_nif}|${fullname}|${address}|${rfb_fiat_balance}\r\n`;
-
-    for ({ coin_symbol, coin_balance } of coin_balances) {
-        const rfb_coin_balance = coin_balance.toFixed(10).replace(/\./g, '');
-
-        returnString += `${line_type_2}|${formatDate(date)}|${rfb_identity_type}|${country}|${rfb_cpf}|${rfb_nif}|${coin_symbol}|${rfb_coin_balance}\r\n`;
     }
 
     const rfb_fiat_balance = fiat_balance.toFixed(2).replace(/\./g, '');
@@ -295,6 +287,15 @@ export function createBalanceReportData(obj) {
 
     const rfb_cpf = (document && [1,2].includes(rfb_identity_type)) ? document.match(/\d+/g).join('') : '';
     const rfb_nif = (document && [3,4,5].includes(rfb_identity_type)) ? document : '';
+
+    let returnString = `${line_type_1}|${formatDate(date)}|${rfb_identity_type}|${country}|${rfb_cpf}|${rfb_nif}|${fullname}|${address}|${rfb_fiat_balance}\r\n`;
+
+    for (const { coin_symbol, coin_balance } of coin_balances) {
+        const rfb_coin_balance = coin_balance.toFixed(10).replace(/\./g, '');
+
+        returnString += `${line_type_2}|${formatDate(date)}|${rfb_identity_type}|${country}|${rfb_cpf}|${rfb_nif}|${coin_symbol}|${rfb_coin_balance}\r\n`;
+    }
+
 
     return returnString;
 }
