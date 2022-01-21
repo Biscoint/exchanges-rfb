@@ -293,9 +293,7 @@ export function createBalanceReportData(obj) {
     for (const { coin_symbol, coin_balance } of coin_balances) {
         const rfb_coin_balance = coin_balance.toFixed(10).replace(/\./g, '');
 
-        returnString += `${line_type_2}|${formatDate(date)}|${rfb_identity_type}|${country}|${rfb_cpf}|${rfb_nif}|${coin_symbol}|${rfb_coin_balance}\r\n`;
+        returnString += `${line_type_2}|${coin_symbol}|${rfb_coin_balance}|\r\n`;
     }
-
-
     return returnString;
 }

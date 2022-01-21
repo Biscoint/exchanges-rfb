@@ -82,10 +82,11 @@ describe('Exchange', () => {
       date: '31/12/2019',
       fiat_balance: 100,
 
-      coin_symbol: 'BTC',
-      coin_balance: 0.00000001,
+      // coin_symbol: 'BTC',
+      // coin_balance: 0.00000001,
 
       coin_balances: [
+        { coin_symbol: 'BTC', coin_balance: 10 },
         { coin_symbol: 'ETH', coin_balance: 10 },
       ],
 
